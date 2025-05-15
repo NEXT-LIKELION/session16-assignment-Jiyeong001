@@ -1,37 +1,44 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getPostById, updatePost, deletePost } from "../lib/firebase"; // Firestore 연동
 
-function Edit({ posts, updatePost, deletePost }) {
+function Edit() {
   const navigate = useNavigate();
-  const { id } = useParams(); // URL의 /edit/:id
+  const { id } = useParams(); // URL에서 게시글 ID 가져오기
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  // 글 id에 맞는 데이터 찾기
+  // Firestore에서 게시글 데이터 가져오기
   useEffect(() => {
-    const numericId = Number(id);
-    const found = posts.find((p) => p.id === numericId);
-    if (!found) {
-      alert("해당 게시글이 존재하지 않습니다.");
-      navigate("/");
-      return;
-    }
-    setTitle(found.title);
-    setContent(found.content);
-  }, [id, posts, navigate]);
+    const fetchPost = async () => {
+      const post = await getPostById(id);
+      if (!post) {
+        alert("해당 게시글이 존재하지 않습니다.");
+        navigate("/");
+        return;
+      }
+      setTitle(post.title);
+      setContent(post.content);
+      setLoading(false);
+    };
+    fetchPost();
+  }, [id, navigate]);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 입력하세요.");
       return;
     }
-    updatePost(Number(id), title, content);
+    await updatePost(id, title, content);
+    alert("게시글이 수정되었습니다.");
     navigate("/");
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      deletePost(Number(id));
+      await deletePost(id);
+      alert("게시글이 삭제되었습니다.");
       navigate("/");
     }
   };

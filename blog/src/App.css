@@ -1,178 +1,502 @@
-/* 1) 전체 페이지 기본 설정 */
-html, body {
+/* 기본 스타일 */
+:root {
+  --primary: #7c5dfa;
+  --primary-light: #9277ff;
+  --primary-dark: #5e45c0;
+  --secondary: #1e2139;
+  --background: #f8f8fb;
+  --white: #ffffff;
+  --text: #0c0e16;
+  --text-light: #7e88c3;
+  --danger: #ec5757;
+  --danger-light: #ff9797;
+  --success: #33d69f;
+  --border: #dfe3fa;
+  --card-shadow: rgba(72, 84, 159, 0.1);
+  --gradient-1: linear-gradient(135deg, #7c5dfa, #9277ff);
+  --gradient-2: linear-gradient(135deg, #33d69f, #2ab7ca);
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #f6f8fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
 
-/* 2) 컨테이너 (중앙 정렬, 적절한 크기 유지) */
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+  background-image: radial-gradient(circle at 10% 20%, rgba(124, 93, 250, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(51, 214, 159, 0.05) 0%, transparent 20%);
+  background-attachment: fixed;
+}
+
+/* 컨테이너 */
 .container {
-  max-width: 800px; /* 기존 600px에서 확장 */
-  width: 90%;
-  min-width: 500px; /* 지나치게 좁아지는 것 방지 */
-  margin: 40px auto;
-  padding: 32px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-/* 3) 페이지 타이틀 */
+/* 타이틀 */
 .title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--text);
+  position: relative;
+  display: inline-block;
+}
+
+.title::before {
+  content: "📝";
+  margin-right: 12px;
+  font-size: 32px;
+  position: relative;
+  top: 2px;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+.form-title {
   font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--text);
   text-align: center;
+  position: relative;
+  display: inline-block;
 }
 
-/* 4) 버튼 컨테이너 */
-.actions, .action-buttons {
-  margin-bottom: 16px;
-  display: flex;
-  gap: 10px;
+.form-title::before {
+  content: "✏️";
+  margin-right: 12px;
+  font-size: 28px;
+}
+
+.form-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+/* 버튼 */
+.btn,
+.btn-primary,
+button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-}
-
-/* 5) 기본 버튼 스타일 */
-.btn {
-  padding: 14px 24px;
+  padding: 12px 24px;
+  background: var(--gradient-1);
+  color: var(--white);
   border: none;
-  border-radius: 6px;
-  background-color: #2e86de;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(124, 93, 250, 0.25);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn:hover {
-  background-color: #1b5bbf;
+.btn::before,
+.btn-primary::before,
+button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
 }
 
-.btn:active {
-  transform: scale(0.98);
+.btn:hover::before,
+.btn-primary:hover::before,
+button[type="submit"]:hover::before {
+  left: 100%;
 }
 
-/* 6) 삭제 버튼 (빨간색) */
+.btn:hover,
+.btn-primary:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(124, 93, 250, 0.3);
+}
+
+.actions .btn::before {
+  content: "✨ ";
+  position: static;
+  background: none;
+  margin-right: 8px;
+}
+
+.form-actions button[type="submit"]::before {
+  content: "💾 ";
+  position: static;
+  background: none;
+  margin-right: 8px;
+}
+
 .btn-delete {
-  background-color: #c0392b;
+  background: linear-gradient(135deg, var(--danger), var(--danger-light));
+  box-shadow: 0 4px 12px rgba(236, 87, 87, 0.25);
+  margin-left: 12px;
+}
+
+.btn-delete::before {
+  content: "🗑️ ";
+  position: static;
+  background: none;
+  margin-right: 8px;
 }
 
 .btn-delete:hover {
-  background-color: #a83225;
+  box-shadow: 0 6px 14px rgba(236, 87, 87, 0.3);
 }
 
-/* 7) 게시글 목록 */
-.post-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* 액션 버튼 영역 */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 }
 
-.post-item {
-  padding: 16px 0;
-  border-bottom: 1px solid #e4e4e4;
-  transition: background-color 0.1s ease;
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-/* 목록 hover 시 배경 강조 */
-.post-item:hover {
-  background-color: #fcfcfc;
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 12px;
 }
 
-/* 게시글 링크 */
-.post-item a {
-  text-decoration: none;
-  color: #333;
-}
-
-/* 글 제목 */
-.post-item strong {
-  font-size: 20px;
-  margin-bottom: 6px;
-  display: block;
-}
-
-/* 8) 폼 스타일 (수정 페이지도 동일한 스타일 적용) */
+/* 폼 컨테이너 */
 .form-container {
-  max-width: 800px;
-  width: 90%;
-  min-width: 500px; /* 최소 크기 설정 */
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px var(--card-shadow);
+  padding: 40px;
+  max-width: 600px;
   margin: 40px auto;
-  padding: 32px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* 폼 타이틀 */
-.form-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
+.form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--gradient-1);
 }
 
-/* 폼 그룹 (입력 필드) */
+.form-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background-image: radial-gradient(circle, rgba(124, 93, 250, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.form-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px var(--card-shadow);
+}
+
+/* 폼 그룹 */
 .form-group {
-  margin-bottom: 16px;
-  text-align: left;
+  margin-bottom: 24px;
+  position: relative;
 }
 
-/* 라벨 */
 .form-group label {
   display: block;
   font-weight: 600;
-  margin-bottom: 6px;
-  color: #444;
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 16px;
 }
 
-/* 인풋 & 텍스트에어리어 */
+.form-group label::after {
+  content: "✨";
+  margin-left: 8px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  color: var(--text);
+  background-color: var(--white);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #2e86de;
-  box-shadow: 0 0 5px rgba(46, 134, 222, 0.3);
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 93, 250, 0.15);
 }
 
-/* 텍스트에어리어 크기 조절 */
 .form-group textarea {
+  min-height: 180px;
   resize: vertical;
-  min-height: 140px;
 }
 
-/* 폼 버튼 영역 */
-.form-buttons {
+/* 게시글 목록 */
+.post-list {
+  list-style: none;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.post-item {
+  background-color: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px var(--card-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.post-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-1);
+  z-index: 1;
+}
+
+.post-item:nth-child(2n)::before {
+  background: var(--gradient-2);
+}
+
+.post-item:hover {
+  transform: translateY(-8px) rotate(1deg);
+  box-shadow: 0 15px 30px var(--card-shadow);
+}
+
+.post-item a {
+  display: block;
+  padding: 24px;
+  text-decoration: none;
+  color: var(--text);
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.post-item strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.post-item strong::before {
+  content: "📄 ";
+  margin-right: 6px;
+}
+
+.post-item:nth-child(3n) strong::before {
+  content: "📝 ";
+}
+
+.post-item:nth-child(3n + 1) strong::before {
+  content: "📑 ";
+}
+
+.post-item strong::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+.post-item p {
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 로딩 상태 */
+.loading {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: var(--text-light);
 }
 
-/* 반응형 (작은 화면에서도 적절한 크기 유지) */
-@media (max-width: 768px) {
-  .container, .form-container {
-    width: 95%;
-    padding: 24px;
+.loading::before {
+  content: "🔄";
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .form-container {
+    padding: 30px 20px;
+  }
+
+  .post-list {
+    grid-template-columns: 1fr;
+  }
+
+  .title,
+  .form-title {
+    font-size: 24px;
+  }
+
+  .btn,
+  .btn-primary,
+  button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.container,
+.form-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* 빈 상태 메시지 */
+.empty-state {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--text-light);
+  position: relative;
+}
+
+.empty-state::before {
+  content: "📭";
+  display: block;
+  font-size: 48px;
+  margin-bottom: 20px;
+  animation: bounce 2s ease infinite;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+/* 추가 장식 요소 */
+.container::after {
+  content: "";
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 150px;
+  background-image: radial-gradient(circle, rgba(51, 214, 159, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.container::before {
+  content: "";
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+  height: 150px;
+  background-image: radial-gradient(circle, rgba(124, 93, 250, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
 }

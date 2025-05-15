@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addPost } from "../lib/firebase";
 
-function Create({ createPost }) {
+function Create() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 입력하세요.");
       return;
     }
-    createPost(title, content);
+
+    await addPost(title, content);
     navigate("/");
   };
 
@@ -40,7 +42,9 @@ function Create({ createPost }) {
         </div>
 
         <div className="form-actions">
-          <button type="submit" className="btn-primary">등록하기</button>
+          <button type="submit" className="btn-primary">
+            등록하기
+          </button>
         </div>
       </form>
     </div>

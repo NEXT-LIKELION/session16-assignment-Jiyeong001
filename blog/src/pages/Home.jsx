@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-/*import { useEffect, useState } from "react";
-import { getPosts } from "../lib/firebase"; // Firestore에서 데이터 가져오기 */
+import { useEffect, useState } from "react";
+import { getPosts } from "../lib/firebase";
 
 function Home() {
-  /*const [posts, setPosts] = useState([]); // 게시글 목록 상태
+  const [posts, setPosts] = useState([]); // 게시글 목록 상태
   const [loading, setLoading] = useState(true); // 로딩 상태
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Home() {
       }
     };
     fetchData();
-  }, []);*/
+  }, []);
 
   return (
     <div className="container">
